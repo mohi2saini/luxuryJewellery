@@ -220,9 +220,10 @@
 
 import { useState, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation,useNavigate } from 'react-router-dom';
 
 const Payment = () => {
+  const nav =useNavigate ();
   const location = useLocation();
   const selectedProducts = location.state?.selectedProducts ?? [];
   const [paymentInfo, setPaymentInfo] = useState({
@@ -249,6 +250,7 @@ const Payment = () => {
     // Here you could handle submitting the payment information to a server
     // and show a confirmation message to the user
     window.alert('Payment successful! Thank you for your purchase.');
+    nav("/")
   };
   
 

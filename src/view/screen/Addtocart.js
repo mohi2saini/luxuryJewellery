@@ -54,16 +54,29 @@
 // }
 /*CHAT GPT CODE */
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { products } from "../data/data";
+import axios from "axios";
 const Addtocart = () => {
+  const nav =useNavigate();
   const [selectedProducts, setSelectedProducts] = useState([]);
 
   // Function to handle adding a product to the cart
-  const handleAddtocart = (product) => {
+  const handleAddtocart = async(product) => {
     setSelectedProducts([...selectedProducts, product]);
-    window.alert('Item added to cart.');
-  };
+
+      let res = await axios.post('addtocart',product)
+      console.log(res.data); 
+      const {message,success} =res.data
+      if(success){
+        window.alert(message);
+        nav('/')
+  
+      }else{
+        window.alert(message);
+  
+      }
+    };
 
   // Function to handle removing a product from the cart
   const handleRemoveFromCart = (product) => {

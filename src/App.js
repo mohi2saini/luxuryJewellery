@@ -31,6 +31,7 @@ import Addtocart from "./view/screen/Addtocart";
 import Payment from "./view/screen/Payment";
 
 import { useState } from "react";
+import Showcart from "./view/screen/Showcart";
 
 function App() {
   const [user,setUser] = useState(localStorage.getItem('user'));
@@ -96,7 +97,9 @@ function logout(){
                       {/* {
                         user ? <NavDropdown.Item onClick={logout}>Logout </NavDropdown.Item>:null
                       } */}
+                    
                     </NavDropdown>
+                    <Navbar.Brand href="#home"><img src={require('./view/img/basket-cart-icon-27.png')} style={{width:30}}/></Navbar.Brand>
                   </Nav>
                 </Navbar.Collapse>
               </Container>
@@ -116,6 +119,7 @@ function logout(){
         <Route path="/Login" element={<Login />} />
         <Route path="/Addtocart" element={<Addtocart />} />
         <Route path="/Payment" element={<Payment />} />
+        <Route path="/showcart" element={<Showcart />} />
       </Routes>
       <footer className="footer">
         <div className="container">
