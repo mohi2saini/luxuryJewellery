@@ -99,7 +99,7 @@ function logout(){
                       } */}
                     
                     </NavDropdown>
-                    <Navbar.Brand href="#home"><img src={require('./view/img/basket-cart-icon-27.png')} style={{width:30}}/></Navbar.Brand>
+                    <Navbar.Brand href="showcart"><img src={require('./view/img/basket-cart-icon-27.png')} style={{width:30}}/></Navbar.Brand>
                   </Nav>
                 </Navbar.Collapse>
               </Container>
