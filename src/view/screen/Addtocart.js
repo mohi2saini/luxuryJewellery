@@ -1,68 +1,16 @@
-// import { useLocation } from "react-router-dom";
-// import { useState } from "react";
-// import React from "react";
-// import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
-// export default function Addtocart() {
-//   const [count, setCount] = useState(0);
-//   function addtocart() {
-//     setCount(count + 1);
-//   }
-//   const loc = useLocation();
-//   const [product, setProduct] = useState(loc.state);
-//   console.log(product);
-//   return (
-//     <>
-//       <Row>
-//         <Col>
-//           <div className="container py-5">
-//             <div className="row">
-//               <div className="col-md-6">
-//                 <img
-//                   src={product.image}
-//                   alt={product.name}
-//                   className="img-fluid"
-//                 />
-//               </div>
-//               <div className="col-md-6">
-//                 <h3>{product.name}</h3>
-//                 <p>Category: {product.category}</p>
-//                 <p>Description: {product.description}</p>
-//                 <h4 className="text-danger">${product.price}</h4>
-//                 <del className="text-muted">${product.mrp}</del>
-//                 <br />
-//                 <br />
-//                 <button className="btn btn-primary mr-2">Buy Now</button>
-
-//               </div>
-//             </div>
-//           </div>
-//         </Col>
-//       </Row>
-//       <div>
-//         <h2>Cart</h2>
-//         <p>Number of items in cart: {count}</p>
-//         {/* <button onClick={addtocart}>Add to cart</button> */}
-//         <button
-//                   className="btn btn-outline-primary"
-//                   id="btn1"
-//                   onClick={addtocart}>
-//                   Add to cart
-//                 </button>
-//       </div>
-//     </>
-//   );
-// }
-/*CHAT GPT CODE */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { products } from "../data/data";
 const Addtocart = () => {
   const [selectedProducts, setSelectedProducts] = useState([]);
-
+  // const [count, setCount] = useState(0);
   // Function to handle adding a product to the cart
   const handleAddtocart = (product) => {
     setSelectedProducts([...selectedProducts, product]);
-    window.alert('Item added to cart.');
+    // const handleAddToCart = () => {
+    //   setCount(count + 1);
+    // };
+    window.alert("Item added to cart.");
   };
 
   // Function to handle removing a product from the cart
@@ -71,15 +19,15 @@ const Addtocart = () => {
       (selectedProduct) => selectedProduct.id !== product.id
     );
     setSelectedProducts(updatedProducts);
-    window.alert('Item removed from cart.');
+    window.alert("Item removed from cart.");
   };
 
   // Calculate the total price of all selected products
   const totalPrice = selectedProducts.reduce((acc, curr) => {
     return typeof curr.price === "number" ? acc + curr.price : acc;
   }, 0);
-  
-  console.log(totalPrice)
+
+  console.log(totalPrice);
 
   return (
     <div className="container my-5">
@@ -157,19 +105,16 @@ const Addtocart = () => {
               )}
             </div>
             <div className="card-footer">
-        
-              {/* <Link
+              <Link
                 to={{
-                  pathname: "/Payment",
-                  state: { selectedProducts: selectedProducts },
+                  pathname: "/payment",
+                  search: `?totalPrice=${totalPrice}`,
+                  state: { selectedProducts },
                 }}
                 className="btn btn-primary"
               >
-                Checkout
-              </Link> */}
-              <Link to={{ pathname: '/payment', search: `?totalPrice=${totalPrice}`, state: { selectedProducts } }}
-              className="btn btn-primary">Proceed to Payment</Link>
-
+                Proceed to Payment
+              </Link>
             </div>
           </div>
         </div>

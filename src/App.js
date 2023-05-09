@@ -33,21 +33,17 @@ import Payment from "./view/screen/Payment";
 import { useState } from "react";
 
 function App() {
-  const [user,setUser] = useState(localStorage.getItem('user'));
- console.log(localStorage.getItem('user'));
+  const [user, setUser] = useState(localStorage.getItem("user"));
+  console.log(localStorage.getItem("user"));
 
-//  useEffect(()=>{
-//   let localdata = localStorage.getItem('user')
-//   setUser(localdata ===false?false:true)
-//  },[user])
- 
-function logout(){
-  alert('logout')
-  localStorage.setItem('user',false)
-  setUser(false)
-}
+  function logout() {
+    alert("logout");
+    localStorage.setItem("user", false);
+    setUser(false);
+    localStorage.clear();
+  }
 
-  console.log(user,'user');
+  console.log(user, "user");
   return (
     <BrowserRouter>
       <Container fluid>
@@ -83,21 +79,33 @@ function logout(){
                       id="basic-nav-dropdown"
                       className="login-icon"
                     >
-                      {
-                      user ? <NavDropdown.Item onClick={logout}>Logout </NavDropdown.Item> :<>
-                      <NavDropdown.Item href="/Login">Login</NavDropdown.Item>
-                      <NavDropdown.Divider />
-                      <NavDropdown.Item href="/Register">
-                        Sign Up
-                      </NavDropdown.Item>
-                      </>
-                      }
+                      {user ? (
+                        <NavDropdown.Item onClick={logout}>
+                          Logout{" "}
+                        </NavDropdown.Item>
+                      ) : (
+                        <>
+                          <NavDropdown.Item href="/Login">
+                            Login
+                          </NavDropdown.Item>
+                          <NavDropdown.Divider />
+                          <NavDropdown.Item href="/Register">
+                            Sign Up
+                          </NavDropdown.Item>
+                        </>
+                      )}
                       {/* <NavDropdown.Divider /> */}
                       {/* {
                         user ? <NavDropdown.Item onClick={logout}>Logout </NavDropdown.Item>:null
                       } */}
                     </NavDropdown>
                   </Nav>
+                  <div className="navbar__cart">
+                    <Link to="/Addtocart" className="nav-link">
+                      <FaShoppingCart className="navbar__cart-icon" />
+                      {/* {count > 0 && <span className="badge">{count}</span>} */}
+                    </Link>
+                  </div>
                 </Navbar.Collapse>
               </Container>
             </Navbar>

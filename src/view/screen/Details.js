@@ -30,7 +30,15 @@ function Details() {
                 <del className="text-muted">${products.mrp}</del>
                 <br />
                 <br />
-                <button className="btn btn-primary mr-2">Buy Now</button>
+                <Link
+                  to={{
+                    pathname: "/payment",
+                    search: `?totalPrice=${products.price}`,
+                  }}
+                  className="btn btn-primary"
+                >
+                  Buy Now
+                </Link>
                 <button
                   className="btn btn-outline-primary"
                   id="btn1"
