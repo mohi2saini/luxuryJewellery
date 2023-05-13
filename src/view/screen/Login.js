@@ -37,9 +37,9 @@ function Login() {
   };
   return (
     <>
-      <Container>
-        <Row>
-          <Col>
+      <Container >
+        <Row >
+          <Col className="cl">
             <h1>Login</h1>
             <Form>
               <Form.Group className="mb-3" controlId="formBasicEmail">

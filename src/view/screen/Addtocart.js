@@ -28,6 +28,7 @@ const Addtocart = () => {
   }, 0);
 
   console.log(totalPrice);
+  console.log(selectedProducts)
 
   return (
     <div className="container my-5">

@@ -45,7 +45,7 @@ function Register() {
     <>
       <Container className="register">
         <Row>
-          <Col>
+          <Col className="cr">
             <h1>Sign Up</h1>
             <Form>
               <Form.Group className="mb-3" controlId="formBasicName">

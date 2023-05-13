@@ -165,7 +165,7 @@ function App() {
             <div className="col-md-4">
               <h4>Address</h4>
               <p>1234 Main Street</p>
-              <p>Anytown, USA 12345</p>
+              <p>Anytown, RAJ 12345</p>
             </div>
           </div>
           <div className="row">
