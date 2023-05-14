@@ -91,12 +91,25 @@ app.post('/jsontocsv',function(req,res){
 app.post('/postdata',function(req,res){
     res.send(req.body)
    })
-app.post('/addtocart',function(req,res){
-    fs.appendFileSync('./data/addtocart.json', JSON.stringify(req.body),"utf8")
+
+
+
+   app.post('/addtocart',function(req,res){
+    let result=fs.appendFileSync('./data/addtocart.json', JSON.stringify(req.body),"utf8")
     fs.appendFileSync('./data/addtocart.json', "\n","utf8")
     
-    res.send(req.body)
+    let resultdata=""
+    if(!result){
+        resultdata={success:true,message:"data addtocart successfully"}
+    }
+    else{
+        resultdata={success:false,message:"data not addto cart successfully"}
+        
+    }
+    res.send(resultdata)
  })
+
+
 
  
  app.post('/register',function(req,res){

@@ -1,29 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { products } from "../data/data";
+import axios from "axios";
 const Addtocart = () => {
+  const [user,setUser]=useState(localStorage.getItem('user'));
   const [selectedProducts, setSelectedProducts] = useState([]);
-  // const [count, setCount] = useState(0);
+   const [cartdata, setCartdata] = useState('');
   // Function to handle adding a product to the cart
-  const handleAddtocart = (product) => {
+  useEffect(()=>{
+async function showcart(){
+
+  let res = await axios.post('showtocart',{username:user}).catch(s=>console.log(s))
+
+  console.log(res?.data);
+  setCartdata(res?.data)
+}
+showcart()
+
+  },[])
+
+  async function showcart(){
+
+    let res = await axios.post('showtocart',{username:user}).catch(s=>console.log(s))
+  
+    console.log(res?.data);
+    setCartdata(res?.data)
+  }
+  
+  
+
+
+  const handleAddtocart = async(product) => {
     setSelectedProducts([...selectedProducts, product]);
-    // const handleAddToCart = () => {
-    //   setCount(count + 1);
-    // };
+let params={
+  ...product,
+  username:user
+}    
+console.log(params);
+
+let res= await axios.post('',params).catch(s=>console.log(s))
+    console.log(res?.data);
     window.alert("Item added to cart.");
+
+    showcart()
+
   };
 
   // Function to handle removing a product from the cart
   const handleRemoveFromCart = (product) => {
-    const updatedProducts = selectedProducts.filter(
+    const updatedProducts = cartdata.filter(
       (selectedProduct) => selectedProduct.id !== product.id
     );
-    setSelectedProducts(updatedProducts);
+    console.log(updatedProducts);
+    setCartdata(updatedProducts);
     window.alert("Item removed from cart.");
   };
 
-  // Calculate the total price of all selected products
-  const totalPrice = selectedProducts.reduce((acc, curr) => {
+  const totalPrice = cartdata.length>0&&cartdata.reduce((acc, curr) => {
     return typeof curr.price === "number" ? acc + curr.price : acc;
   }, 0);
 
@@ -75,7 +108,33 @@ const Addtocart = () => {
               <h5>Cart</h5>
             </div>
             <div className="card-body">
-              {selectedProducts.length > 0 ? (
+              {
+                cartdata.length>0&&
+                    cartdata.map(d=>(
+                      <li
+                      className="list-group-item d-flex justify-content-between align-items-center"
+                      key={d.id}
+                    >
+                      {d.name} = ${d.price}
+                     
+                      <button
+                        className="btn btn-danger btn-sm"
+                        onClick={() => handleRemoveFromCart(d)}
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  
+
+                    ))
+                    
+                
+              }
+               <li className="list-group-item d-flex justify-content-between align-items-center">
+                    Total Price = ${totalPrice}
+                   
+                  </li>
+              {/* {selectedProducts.length > 0 ? (
                 <ul className="list-group">
                   {selectedProducts.map((product) => (
                     <li
@@ -83,9 +142,7 @@ const Addtocart = () => {
                       key={product.id}
                     >
                       {product.name} = ${product.price}
-                      {/* <span className="badge badge-primary badge-pill">
-                        {product.price}
-                      </span> */}
+                     
                       <button
                         className="btn btn-danger btn-sm"
                         onClick={() => handleRemoveFromCart(product)}
@@ -96,14 +153,12 @@ const Addtocart = () => {
                   ))}
                   <li className="list-group-item d-flex justify-content-between align-items-center">
                     Total Price = ${totalPrice}
-                    {/* <span className="badge badge-primary badge-pill">
-                      {totalPrice}
-                    </span> */}
+                   
                   </li>
                 </ul>
               ) : (
                 <p>No items in cart</p>
-              )}
+              )} */}
             </div>
             <div className="card-footer">
               <Link

@@ -23,7 +23,7 @@ function Login() {
       if (success) {
         alert(message);
         console.log(data);
-        localStorage.setItem("user", true);
+        localStorage.setItem("user", email);
         nav("/");
         window.location.reload(true);
       } else {
