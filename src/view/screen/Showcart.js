@@ -1,16 +1,27 @@
 import axios from "axios"
 import { useState,useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Button } from "react-bootstrap"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function Showcart(){
+  const nav=useNavigate()
     const[cartdata,setCartdata] = useState([])
+    
+    const [data, setData] = useState('')
+    const [pay, setPay] = useState('')
     useEffect(()=>{
         async function show(){
 try {
     let res=await axios.post("showtocart",{})
             console.log(res?.data);
             setCartdata(res?.data)
-        
+            let pay=0;
+            res?.data.map(d=>{
+
+              pay+=d.price
+            })
+        console.log(pay);
+        setPay(pay)
 } catch (error) {
     
     console.log(error);
@@ -21,6 +32,42 @@ try {
 console.log("**********************");
     console.log(cartdata);
     console.log("**********************");
+
+    async function show(){
+      try {
+          let res=await axios.post("showtocart",{})
+                  console.log(res?.data);
+                  setCartdata(res?.data)
+                  let pay=0;
+                  res?.data.map(d=>{
+      
+                    pay+=d.price
+                  })
+              console.log(pay);
+              setPay(pay)
+              
+      } catch (error) {
+          
+          console.log(error);
+      }
+                  }
+
+    async  function removeitem(index) {
+       
+      let arr=[]
+      cartdata.map((d, index1) => {
+                      if(index !== index1){
+                          arr.push(d)
+                      }        })
+              console.log(arr);        
+      let res = await axios.post('removecartitem', arr).catch(e=>console.log(e))
+                  console.log(res?.data);
+             await setData(arr)
+      
+              show()
+      
+          }
+
     return(
         <>
         
@@ -34,7 +81,7 @@ console.log("**********************");
             </div>
             <div className="card-body">
               <div className="row">
-                {cartdata.map((product) => (
+                {cartdata.map((product,index) => (
                   <div className="col-md-4 mb-3" key={product.id}>
                     <div className="card h-100">
                       <img
@@ -50,7 +97,7 @@ console.log("**********************");
                       <div className="card-footer">
                         <button
                           className="btn btn-primary"
-                          onClick={() => {}}
+                          onClick={() => removeitem(index)}
                         >
                           Remove
                         </button>
@@ -68,13 +115,13 @@ console.log("**********************");
               <h5>Cart</h5>
             </div>
             <div className="card-body">
-             
+             <p>Total Pay:{pay}</p>
                  
             </div>
             <div className="card-footer">
         
              
-              <Link className="btn btn-primary">Proceed to Payment</Link>
+              <Button onClick={()=>nav('/orderplace',{state:pay})}> Proceed to Payment</Button>
 
             </div>
           </div>

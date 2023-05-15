@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 import Home from "./view/screen/Home";
 import About from "./view/screen/About";
 import { menubar } from "./view/data/data";
@@ -32,8 +32,11 @@ import Payment from "./view/screen/Payment";
 
 import { useState } from "react";
 import Showcart from "./view/screen/Showcart";
+import OrderPlace from "./view/screen/OrderPlace";
+import Profile from "./view/screen/Profile";
 
 function App() {
+ const nav= useNavigate()
   const [user,setUser] = useState(localStorage.getItem('user'));
  console.log(localStorage.getItem('user'));
 
@@ -50,7 +53,7 @@ function logout(){
 
   console.log(user,'user');
   return (
-    <BrowserRouter>
+    <>
       <Container fluid>
         <Row>
           <Col>
@@ -85,7 +88,7 @@ function logout(){
                       className="login-icon"
                     >
                       {
-                      user ? <NavDropdown.Item onClick={logout}>Logout </NavDropdown.Item> :<>
+                      user ? <><NavDropdown.Item onClick={()=>nav("/profile")}>Profile </NavDropdown.Item><NavDropdown.Item onClick={logout}>Logout </NavDropdown.Item></> :<>
                       <NavDropdown.Item href="/Login">Login</NavDropdown.Item>
                       <NavDropdown.Divider />
                       <NavDropdown.Item href="/Register">
@@ -120,6 +123,8 @@ function logout(){
         <Route path="/Addtocart" element={<Addtocart />} />
         <Route path="/Payment" element={<Payment />} />
         <Route path="/showcart" element={<Showcart />} />
+        <Route path="/orderplace" element={<OrderPlace />} />
+        <Route path="/profile" element={<Profile/>} />
       </Routes>
       <footer className="footer">
         <div className="container">
@@ -171,7 +176,7 @@ function logout(){
           </div>
         </div>
       </footer>
-    </BrowserRouter>
+    </>
   );
 }
 
