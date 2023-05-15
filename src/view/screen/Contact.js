@@ -1,14 +1,14 @@
-import React,{useState} from "react";
-import { Form, Button,Alert } from "react-bootstrap";
-function Contact(){
+import React, { useState } from "react";
+import { Form, Button, Alert } from "react-bootstrap";
+function Contact() {
   const [showAlert, setShowAlert] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowAlert(true);
   };
-    return (
-        <div className="container">
+  return (
+    <div className="container">
       <h1 className="text-center mb-4">Contact Us</h1>
       <div className="row">
         <div className="col-md-8 mx-auto">
@@ -30,7 +30,11 @@ function Contact(){
 
             <Form.Group controlId="formBasicMessage">
               <Form.Label>Message</Form.Label>
-              <Form.Control as="textarea" rows={5} placeholder="Enter your message" />
+              <Form.Control
+                as="textarea"
+                rows={5}
+                placeholder="Enter your message"
+              />
             </Form.Group>
 
             <Button className="cbtn" variant="primary" type="submit">
@@ -38,18 +42,18 @@ function Contact(){
             </Button>
           </Form>
           {showAlert && (
-        <Alert
-          className="mt-4"
-          variant="success"
-          onClose={() => setShowAlert(false)}
-          dismissible
-        >
-          Response recorded, Thank You!
-        </Alert>
-      )}
+            <Alert
+              className="mt-4"
+              variant="success"
+              onClose={() => setShowAlert(false)}
+              dismissible
+            >
+              Response recorded, Thank You!
+            </Alert>
+          )}
         </div>
       </div>
     </div>
-    );
+  );
 }
 export default Contact;

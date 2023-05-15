@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import { useLocation } from "react-router-dom";
 // import { useState } from "react";
 // import React from "react";
@@ -59,9 +60,18 @@ import { products } from "../data/data";
 import axios from "axios";
 const Addtocart = () => {
   const nav =useNavigate();
+=======
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { products } from "../data/data";
+import axios from "axios";
+const Addtocart = () => {
+  const [user,setUser]=useState(localStorage.getItem('user'));
+>>>>>>> 9e1603d86ed579f5ea694c49238d217eccc6b5f4
   const [selectedProducts, setSelectedProducts] = useState([]);
-
+   const [cartdata, setCartdata] = useState('');
   // Function to handle adding a product to the cart
+<<<<<<< HEAD
   const handleAddtocart = async(product) => {
     setSelectedProducts([...selectedProducts, product]);
 
@@ -77,22 +87,63 @@ const Addtocart = () => {
   
       }
     };
+=======
+  useEffect(()=>{
+async function showcart(){
+
+  let res = await axios.post('showtocart',{username:user}).catch(s=>console.log(s))
+
+  console.log(res?.data);
+  setCartdata(res?.data)
+}
+showcart()
+
+  },[])
+
+  async function showcart(){
+
+    let res = await axios.post('showtocart',{username:user}).catch(s=>console.log(s))
+  
+    console.log(res?.data);
+    setCartdata(res?.data)
+  }
+  
+  
+
+
+  const handleAddtocart = async(product) => {
+    setSelectedProducts([...selectedProducts, product]);
+let params={
+  ...product,
+  username:user
+}    
+console.log(params);
+
+let res= await axios.post('',params).catch(s=>console.log(s))
+    console.log(res?.data);
+    window.alert("Item added to cart.");
+
+    showcart()
+
+  };
+>>>>>>> 9e1603d86ed579f5ea694c49238d217eccc6b5f4
 
   // Function to handle removing a product from the cart
   const handleRemoveFromCart = (product) => {
-    const updatedProducts = selectedProducts.filter(
+    const updatedProducts = cartdata.filter(
       (selectedProduct) => selectedProduct.id !== product.id
     );
-    setSelectedProducts(updatedProducts);
-    window.alert('Item removed from cart.');
+    console.log(updatedProducts);
+    setCartdata(updatedProducts);
+    window.alert("Item removed from cart.");
   };
 
-  // Calculate the total price of all selected products
-  const totalPrice = selectedProducts.reduce((acc, curr) => {
+  const totalPrice = cartdata.length>0&&cartdata.reduce((acc, curr) => {
     return typeof curr.price === "number" ? acc + curr.price : acc;
   }, 0);
-  
-  console.log(totalPrice)
+
+  console.log(totalPrice);
+  console.log(selectedProducts)
 
   return (
     <div className="container my-5">
@@ -139,7 +190,33 @@ const Addtocart = () => {
               <h5>Cart</h5>
             </div>
             <div className="card-body">
-              {selectedProducts.length > 0 ? (
+              {
+                cartdata.length>0&&
+                    cartdata.map(d=>(
+                      <li
+                      className="list-group-item d-flex justify-content-between align-items-center"
+                      key={d.id}
+                    >
+                      {d.name} = ${d.price}
+                     
+                      <button
+                        className="btn btn-danger btn-sm"
+                        onClick={() => handleRemoveFromCart(d)}
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  
+
+                    ))
+                    
+                
+              }
+               <li className="list-group-item d-flex justify-content-between align-items-center">
+                    Total Price = ${totalPrice}
+                   
+                  </li>
+              {/* {selectedProducts.length > 0 ? (
                 <ul className="list-group">
                   {selectedProducts.map((product) => (
                     <li
@@ -147,9 +224,7 @@ const Addtocart = () => {
                       key={product.id}
                     >
                       {product.name} = ${product.price}
-                      {/* <span className="badge badge-primary badge-pill">
-                        {product.price}
-                      </span> */}
+                     
                       <button
                         className="btn btn-danger btn-sm"
                         onClick={() => handleRemoveFromCart(product)}
@@ -160,29 +235,24 @@ const Addtocart = () => {
                   ))}
                   <li className="list-group-item d-flex justify-content-between align-items-center">
                     Total Price = ${totalPrice}
-                    {/* <span className="badge badge-primary badge-pill">
-                      {totalPrice}
-                    </span> */}
+                   
                   </li>
                 </ul>
               ) : (
                 <p>No items in cart</p>
-              )}
+              )} */}
             </div>
             <div className="card-footer">
-        
-              {/* <Link
+              <Link
                 to={{
-                  pathname: "/Payment",
-                  state: { selectedProducts: selectedProducts },
+                  pathname: "/payment",
+                  search: `?totalPrice=${totalPrice}`,
+                  state: { selectedProducts },
                 }}
                 className="btn btn-primary"
               >
-                Checkout
-              </Link> */}
-              <Link to={{ pathname: '/payment', search: `?totalPrice=${totalPrice}`, state: { selectedProducts } }}
-              className="btn btn-primary">Proceed to Payment</Link>
-
+                Proceed to Payment
+              </Link>
             </div>
           </div>
         </div>

@@ -36,22 +36,23 @@ import OrderPlace from "./view/screen/OrderPlace";
 import Profile from "./view/screen/Profile";
 
 function App() {
+<<<<<<< HEAD
  const nav= useNavigate()
   const [user,setUser] = useState(localStorage.getItem('user'));
  console.log(localStorage.getItem('user'));
+=======
+  const [user, setUser] = useState(localStorage.getItem("user"));
+  console.log(localStorage.getItem("user"));
+>>>>>>> 9e1603d86ed579f5ea694c49238d217eccc6b5f4
 
-//  useEffect(()=>{
-//   let localdata = localStorage.getItem('user')
-//   setUser(localdata ===false?false:true)
-//  },[user])
- 
-function logout(){
-  alert('logout')
-  localStorage.setItem('user',false)
-  setUser(false)
-}
+  function logout() {
+    alert("logout");
+    localStorage.setItem("user", false);
+    setUser(false);
+    localStorage.clear();
+  }
 
-  console.log(user,'user');
+  console.log(user, "user");
   return (
     <>
       <Container fluid>
@@ -87,6 +88,7 @@ function logout(){
                       id="basic-nav-dropdown"
                       className="login-icon"
                     >
+<<<<<<< HEAD
                       {
                       user ? <><NavDropdown.Item onClick={()=>nav("/profile")}>Profile </NavDropdown.Item><NavDropdown.Item onClick={logout}>Logout </NavDropdown.Item></> :<>
                       <NavDropdown.Item href="/Login">Login</NavDropdown.Item>
@@ -96,6 +98,23 @@ function logout(){
                       </NavDropdown.Item>
                       </>
                       }
+=======
+                      {user ? (
+                        <NavDropdown.Item onClick={logout}>
+                          Logout{" "}
+                        </NavDropdown.Item>
+                      ) : (
+                        <>
+                          <NavDropdown.Item href="/Login">
+                            Login
+                          </NavDropdown.Item>
+                          <NavDropdown.Divider />
+                          <NavDropdown.Item href="/Register">
+                            Sign Up
+                          </NavDropdown.Item>
+                        </>
+                      )}
+>>>>>>> 9e1603d86ed579f5ea694c49238d217eccc6b5f4
                       {/* <NavDropdown.Divider /> */}
                       {/* {
                         user ? <NavDropdown.Item onClick={logout}>Logout </NavDropdown.Item>:null
@@ -104,6 +123,12 @@ function logout(){
                     </NavDropdown>
                     <Navbar.Brand href="showcart"><img src={require('./view/img/basket-cart-icon-27.png')} style={{width:30}}/></Navbar.Brand>
                   </Nav>
+                  <div className="navbar__cart">
+                    <Link to="/Addtocart" className="nav-link">
+                      <FaShoppingCart className="navbar__cart-icon" />
+                      {/* {count > 0 && <span className="badge">{count}</span>} */}
+                    </Link>
+                  </div>
                 </Navbar.Collapse>
               </Container>
             </Navbar>
@@ -166,7 +191,7 @@ function logout(){
             <div className="col-md-4">
               <h4>Address</h4>
               <p>1234 Main Street</p>
-              <p>Anytown, USA 12345</p>
+              <p>Anytown, RAJ 12345</p>
             </div>
           </div>
           <div className="row">
