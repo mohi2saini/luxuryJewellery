@@ -5,9 +5,15 @@ function Details() {
   const nav = useNavigate();
   const loc = useLocation();
   const [products, setProducts] = useState(loc.state);
+  const [user, setUser] = useState(localStorage.getItem('user'));
   console.log(products);
   function addtocart(d) {
+    if(user){
     nav("/Addtocart", { state: d });
+    }else{
+      alert("Login user")
+      nav('/login')
+    }
   }
   return (
     <>
@@ -30,15 +36,14 @@ function Details() {
                 <del className="text-muted">${products.mrp}</del>
                 <br />
                 <br />
-                <Link
-                  to={{
-                    pathname: "/payment",
-                    search: `?totalPrice=${products.price}`,
-                  }}
-                  className="btn btn-primary"
+               
+                <button
+                  className="btn btn-outline-primary"
+                  id="btn1"
+                  onClick={() => addtocart(products)}
                 >
-                  Buy Now
-                </Link>
+                   Buy Now 
+                </button>
                 <button
                   className="btn btn-outline-primary"
                   id="btn1"

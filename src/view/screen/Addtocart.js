@@ -64,7 +64,9 @@ const Addtocart = () => {
   const [selectedProducts, setSelectedProducts] = useState([]);
    const [cartdata, setCartdata] = useState('');
   // Function to handle adding a product to the cart
- /*  const handleAddtocart = async(product) => {
+  const handleAddtocart = async(product) => {
+
+    if(user){
     setSelectedProducts([...selectedProducts, product]);
 
       let res = await axios.post('addtocart',product)
@@ -78,7 +80,11 @@ const Addtocart = () => {
         window.alert(message);
   
       }
-    }; */
+    }else{
+      window.alert("user Not Login ");
+      nav("/login")
+    }
+    }; 
   useEffect(()=>{
 async function showcart(){
 
@@ -102,24 +108,9 @@ showcart()
   
 
 
-  const handleAddtocart = async(product) => {
-    setSelectedProducts([...selectedProducts, product]);
-let params={
-  ...product,
-  username:user
-}    
-console.log(params);
-
-let res= await axios.post('',params).catch(s=>console.log(s))
-    console.log(res?.data);
-    window.alert("Item added to cart.");
-
-    showcart()
-
-  };
 
   // Function to handle removing a product from the cart
-  const handleRemoveFromCart = (product) => {
+  /* const handleRemoveFromCart = (product) => {
     const updatedProducts = cartdata.filter(
       (selectedProduct) => selectedProduct.id !== product.id
     );
@@ -127,6 +118,8 @@ let res= await axios.post('',params).catch(s=>console.log(s))
     setCartdata(updatedProducts);
     window.alert("Item removed from cart.");
   };
+ */
+
 
   const totalPrice = cartdata.length>0&&cartdata.reduce((acc, curr) => {
     return typeof curr.price === "number" ? acc + curr.price : acc;
@@ -139,7 +132,7 @@ let res= await axios.post('',params).catch(s=>console.log(s))
     <div className="container my-5">
       <h1 className="mb-3">Add to Cart</h1>
       <div className="row">
-        <div className="col-md-8">
+        <div className="">
           <div className="card">
             <div className="card-header">
               <h5>Select Products</h5>
@@ -174,7 +167,7 @@ let res= await axios.post('',params).catch(s=>console.log(s))
             </div>
           </div>
         </div>
-        <div className="col-md-4">
+        {/* <div className="col-md-4">
           <div className="card">
             <div className="card-header">
               <h5>Cart</h5>
@@ -205,7 +198,7 @@ let res= await axios.post('',params).catch(s=>console.log(s))
                <li className="list-group-item d-flex justify-content-between align-items-center">
                     Total Price = ${totalPrice}
                    
-                  </li>
+                  </li> */}
               {/* {selectedProducts.length > 0 ? (
                 <ul className="list-group">
                   {selectedProducts.map((product) => (
@@ -231,7 +224,7 @@ let res= await axios.post('',params).catch(s=>console.log(s))
               ) : (
                 <p>No items in cart</p>
               )} */}
-            </div>
+           {/*  </div>
             <div className="card-footer">
               <Link
                 to={{
@@ -245,9 +238,9 @@ let res= await axios.post('',params).catch(s=>console.log(s))
               </Link>
             </div>
           </div>
-        </div>
+              </div>*/}
       </div>
-    </div>
+    </div> 
   );
 };
 

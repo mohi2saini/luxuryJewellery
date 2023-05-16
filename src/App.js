@@ -46,6 +46,7 @@ function App() {
     localStorage.setItem("user", false);
     setUser(false);
     localStorage.clear();
+    nav("/")
   }
 
   console.log(user, "user");
@@ -95,35 +96,24 @@ function App() {
                       </>
                       }
 
-                      {user ? (
-                        <NavDropdown.Item onClick={logout}>
-                          Logout{" "}
-                        </NavDropdown.Item>
-                      ) : (
-                        <>
-                          <NavDropdown.Item href="/Login">
-                            Login
-                          </NavDropdown.Item>
-                          <NavDropdown.Divider />
-                          <NavDropdown.Item href="/Register">
-                            Sign Up
-                          </NavDropdown.Item>
-                        </>
-                      )}
+                     
                       {/* <NavDropdown.Divider /> */}
                       {/* {
                         user ? <NavDropdown.Item onClick={logout}>Logout </NavDropdown.Item>:null
                       } */}
                     
                     </NavDropdown>
-                    <Navbar.Brand href="showcart"><img src={require('./view/img/basket-cart-icon-27.png')} style={{width:30}}/></Navbar.Brand>
+                    { user&&<> <Navbar.Brand href="showcart">
+                      <img src={require('./view/img/basket-cart-icon-27.png')} style={{width:30}}/>
+                        </Navbar.Brand>
+                       
+                      {/* <Navbar.Brand href="profile">
+                       <img src={require('./view/img/profile.png')} style={{ marginLeft:20,width:30}}/>
+                      </Navbar.Brand>
+                       */}</>
+                      }
                   </Nav>
-                  <div className="navbar__cart">
-                    <Link to="/Addtocart" className="nav-link">
-                      <FaShoppingCart className="navbar__cart-icon" />
-                      {/* {count > 0 && <span className="badge">{count}</span>} */}
-                    </Link>
-                  </div>
+                  
                 </Navbar.Collapse>
               </Container>
             </Navbar>
@@ -140,11 +130,14 @@ function App() {
         <Route path="/details" element={<Details />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
+     {user&&<>   
         <Route path="/Addtocart" element={<Addtocart />} />
         <Route path="/Payment" element={<Payment />} />
         <Route path="/showcart" element={<Showcart />} />
         <Route path="/orderplace" element={<OrderPlace />} />
         <Route path="/profile" element={<Profile/>} />
+        </>
+}
       </Routes>
       <footer className="footer">
         <div className="container">
