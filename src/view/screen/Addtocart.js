@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // import { useLocation } from "react-router-dom";
 // import { useState } from "react";
 // import React from "react";
@@ -54,25 +54,17 @@
 //   );
 // }
 /*CHAT GPT CODE */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import { products } from "../data/data";
 import axios from "axios";
 const Addtocart = () => {
   const nav =useNavigate();
-=======
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { products } from "../data/data";
-import axios from "axios";
-const Addtocart = () => {
   const [user,setUser]=useState(localStorage.getItem('user'));
->>>>>>> 9e1603d86ed579f5ea694c49238d217eccc6b5f4
   const [selectedProducts, setSelectedProducts] = useState([]);
    const [cartdata, setCartdata] = useState('');
   // Function to handle adding a product to the cart
-<<<<<<< HEAD
-  const handleAddtocart = async(product) => {
+ /*  const handleAddtocart = async(product) => {
     setSelectedProducts([...selectedProducts, product]);
 
       let res = await axios.post('addtocart',product)
@@ -86,8 +78,7 @@ const Addtocart = () => {
         window.alert(message);
   
       }
-    };
-=======
+    }; */
   useEffect(()=>{
 async function showcart(){
 
@@ -126,7 +117,6 @@ let res= await axios.post('',params).catch(s=>console.log(s))
     showcart()
 
   };
->>>>>>> 9e1603d86ed579f5ea694c49238d217eccc6b5f4
 
   // Function to handle removing a product from the cart
   const handleRemoveFromCart = (product) => {

@@ -36,14 +36,10 @@ import OrderPlace from "./view/screen/OrderPlace";
 import Profile from "./view/screen/Profile";
 
 function App() {
-<<<<<<< HEAD
  const nav= useNavigate()
-  const [user,setUser] = useState(localStorage.getItem('user'));
- console.log(localStorage.getItem('user'));
-=======
+  
   const [user, setUser] = useState(localStorage.getItem("user"));
   console.log(localStorage.getItem("user"));
->>>>>>> 9e1603d86ed579f5ea694c49238d217eccc6b5f4
 
   function logout() {
     alert("logout");
@@ -88,7 +84,7 @@ function App() {
                       id="basic-nav-dropdown"
                       className="login-icon"
                     >
-<<<<<<< HEAD
+
                       {
                       user ? <><NavDropdown.Item onClick={()=>nav("/profile")}>Profile </NavDropdown.Item><NavDropdown.Item onClick={logout}>Logout </NavDropdown.Item></> :<>
                       <NavDropdown.Item href="/Login">Login</NavDropdown.Item>
@@ -98,7 +94,7 @@ function App() {
                       </NavDropdown.Item>
                       </>
                       }
-=======
+
                       {user ? (
                         <NavDropdown.Item onClick={logout}>
                           Logout{" "}
@@ -114,7 +110,6 @@ function App() {
                           </NavDropdown.Item>
                         </>
                       )}
->>>>>>> 9e1603d86ed579f5ea694c49238d217eccc6b5f4
                       {/* <NavDropdown.Divider /> */}
                       {/* {
                         user ? <NavDropdown.Item onClick={logout}>Logout </NavDropdown.Item>:null
