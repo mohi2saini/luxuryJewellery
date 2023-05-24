@@ -40,6 +40,7 @@ function Register() {
     setEmail("");
     setPassword("");
     setName("");
+    
   };
   return (
     <>

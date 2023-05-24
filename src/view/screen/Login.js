@@ -12,6 +12,7 @@ function Login() {
     let params = {
       email: email,
       password: password,
+  
     };
 
     console.log(params);

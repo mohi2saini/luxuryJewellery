@@ -36,20 +36,16 @@ import OrderPlace from "./view/screen/OrderPlace";
 import Profile from "./view/screen/Profile";
 
 function App() {
-<<<<<<< HEAD
  const nav= useNavigate()
   const [user,setUser] = useState(localStorage.getItem('user'));
  console.log(localStorage.getItem('user'));
-=======
-  const [user, setUser] = useState(localStorage.getItem("user"));
-  console.log(localStorage.getItem("user"));
->>>>>>> 9e1603d86ed579f5ea694c49238d217eccc6b5f4
 
   function logout() {
     alert("logout");
     localStorage.setItem("user", false);
     setUser(false);
     localStorage.clear();
+    nav("/");
   }
 
   console.log(user, "user");
@@ -60,7 +56,7 @@ function App() {
           <Col>
             <Navbar className="jewelry-navbar " expand="lg">
               <Container>
-                <Navbar.Brand href="#home">Luxury Jewellery</Navbar.Brand>
+                <Navbar.Brand href="/">Luxury Jewellery</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="me-auto ">
@@ -88,9 +84,8 @@ function App() {
                       id="basic-nav-dropdown"
                       className="login-icon"
                     >
-<<<<<<< HEAD
                       {
-                      user ? <><NavDropdown.Item onClick={()=>nav("/profile")}>Profile </NavDropdown.Item><NavDropdown.Item onClick={logout}>Logout </NavDropdown.Item></> :<>
+                      user ? <><NavDropdown.Item onClick={logout}>Logout </NavDropdown.Item></> :<>
                       <NavDropdown.Item href="/Login">Login</NavDropdown.Item>
                       <NavDropdown.Divider />
                       <NavDropdown.Item href="/Register">
@@ -98,37 +93,23 @@ function App() {
                       </NavDropdown.Item>
                       </>
                       }
-=======
-                      {user ? (
-                        <NavDropdown.Item onClick={logout}>
-                          Logout{" "}
-                        </NavDropdown.Item>
-                      ) : (
-                        <>
-                          <NavDropdown.Item href="/Login">
-                            Login
-                          </NavDropdown.Item>
-                          <NavDropdown.Divider />
-                          <NavDropdown.Item href="/Register">
-                            Sign Up
-                          </NavDropdown.Item>
-                        </>
-                      )}
->>>>>>> 9e1603d86ed579f5ea694c49238d217eccc6b5f4
                       {/* <NavDropdown.Divider /> */}
                       {/* {
                         user ? <NavDropdown.Item onClick={logout}>Logout </NavDropdown.Item>:null
                       } */}
                     
                     </NavDropdown>
-                    <Navbar.Brand href="showcart"><img src={require('./view/img/basket-cart-icon-27.png')} style={{width:30}}/></Navbar.Brand>
+                    { user&&<Navbar.Brand href="showcart" className="navbar__cart-icon">
+                      <img src={require('./view/img/basket-cart-icon-27.png')} style={{width:25}}/>
+                      </Navbar.Brand>
+                    }
                   </Nav>
-                  <div className="navbar__cart">
+                  {/* <div className="navbar__cart">
                     <Link to="/Addtocart" className="nav-link">
                       <FaShoppingCart className="navbar__cart-icon" />
-                      {/* {count > 0 && <span className="badge">{count}</span>} */}
+                      {count > 0 && <span className="badge">{count}</span>}
                     </Link>
-                  </div>
+                  </div> */}
                 </Navbar.Collapse>
               </Container>
             </Navbar>
@@ -145,11 +126,14 @@ function App() {
         <Route path="/details" element={<Details />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
+        {user&&<>
         <Route path="/Addtocart" element={<Addtocart />} />
         <Route path="/Payment" element={<Payment />} />
         <Route path="/showcart" element={<Showcart />} />
         <Route path="/orderplace" element={<OrderPlace />} />
         <Route path="/profile" element={<Profile/>} />
+        </> }
+
       </Routes>
       <footer className="footer">
         <div className="container">
